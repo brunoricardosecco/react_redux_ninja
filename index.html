@@ -14,11 +14,39 @@
 
   <script type="text/babel">
     class App extends React.Component {
+      state = {
+        name: "Jason",
+        age: 30,
+      }
+
+      handleClick(e) {// Sempre um evento é passado nas funções criadas pelo usuario, não é preciso usa-lo necessariamente, mas há essa opção.
+        console.log(this.state);//nao funciona
+      }
+      handleClick = (e) => {// A arrow function interpreta o this de uma forma diferente da named function. Basicamente sempre usar arrow function..
+
+        //this.state.name = "Brusasno" //NUNCA faça isso, isso é um modo horrivel e inseguro de alterar um estado
+        
+        this.setState({
+          name: "Bruno"
+        });
+
+        console.log(this.state);//funciona
+      }
+      handleOver(e) {
+        console.log(e.target);
+      }
+      handleCopy(e) {
+        console.log("Awesome");
+      }
+
       render() {
         return (
           <div className="app-content">
             <h1>Hey bro</h1>
-            <p>{Math.random() * 10}</p>
+            <p>My name is: {this.state.name} and I have {this.state.age} years old</p>
+            <button onClick={this.handleClick}> ClickMe</button>
+            <button onMouseOver={this.handleOver}>Hover me</button>
+            <p onCopy={this.handleCopy}>Copy me</p>
           </div>
         )
       }
