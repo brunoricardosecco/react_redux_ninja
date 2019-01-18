@@ -22,21 +22,35 @@
       handleClick(e) {// Sempre um evento é passado nas funções criadas pelo usuario, não é preciso usa-lo necessariamente, mas há essa opção.
         console.log(this.state);//nao funciona
       }
+
       handleClick = (e) => {// A arrow function interpreta o this de uma forma diferente da named function. Basicamente sempre usar arrow function..
 
         //this.state.name = "Brusasno" //NUNCA faça isso, isso é um modo horrivel e inseguro de alterar um estado
-        
+
         this.setState({
           name: "Bruno"
         });
 
         console.log(this.state);//funciona
       }
+
       handleOver(e) {
         console.log(e.target);
       }
+
       handleCopy(e) {
         console.log("Awesome");
+      }
+
+      handleChange = (e) => {
+        this.setState({
+          name: e.target.value,
+        });
+      }
+
+      handleSubmit = (e) => {
+        e.preventDefault(); //essa função nativa previni o evento default, o evento default de um form quando é apertado um botão é submeter e atualizar a pagina, o preventDefault previne esse evento e a pagina não atualiza.
+        console.log(`Submitted with ${this.state.name} name!`);
       }
 
       render() {
@@ -47,6 +61,10 @@
             <button onClick={this.handleClick}> ClickMe</button>
             <button onMouseOver={this.handleOver}>Hover me</button>
             <p onCopy={this.handleCopy}>Copy me</p>
+            <form  onSubmit={this.handleSubmit}>
+              <input type="text" onChange={this.handleChange}/>
+              <button>Submit this</button>  
+            </form>
           </div>
         )
       }
